@@ -12,7 +12,7 @@ export function Header() {
   return (
     <div className="py-8">
       <div className="flex items-center justify-between max-w-[1130px] m-auto">
-        <div className="flex text-[#141624] text-3xl items-center gap-[9px]">
+        <div className=" text-[#141624] text-3xl items-center gap-[9px]">
           <img src="./images/logo.svg" className="dark:text-white h-9 w-9" />
           <span>
             Meta
