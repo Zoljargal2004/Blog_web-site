@@ -9,6 +9,8 @@ const inter = Inter({ subsets: ["latin"] });
 let data = [];
 
 export default function Home() {
+
+
   const [articles, setArticle] = useState([]);
 
   useEffect(() => {
@@ -22,7 +24,15 @@ export default function Home() {
   }, []);
 
   function LoadMore(){
-
+    useEffect(() => {
+      fetch(`https://dev.to/api/articles?username=arindam_1729&page1&per_page=6`)
+        .then((responses) => {
+          return responses.json();
+        })
+        .then((data) => {
+          setArticle(data);
+        });
+    }, []);
   }
 
 
