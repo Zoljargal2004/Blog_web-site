@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CiSearch } from "react-icons/ci";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const nav_bar = [
   { text: "Home", link: "#" },
@@ -10,23 +11,29 @@ const nav_bar = [
 
 export function Header() {
   return (
-    <div className="py-8">
+    <div className="p-5 lg:py-8">
       <div className="flex items-center justify-between max-w-[1130px] m-auto">
-        <div className=" text-[#141624] text-3xl items-center gap-[9px]">
+        <div className=" text-[#141624] text-3xl items-center gap-[9px] flex">
           <img src="./images/logo.svg" className="dark:text-white h-9 w-9" />
           <span>
             Meta
             <b>Blog</b>
           </span>
         </div>
-        <div className="flex gap-10 text-lg text-[#3B3C4A]">
+        <div className=" gap-10 text-lg text-[#3B3C4A] hidden lg:flex">
           {nav_bar.map((bar) => {
-            return <Link href={bar.link}>{bar.text}</Link>;
+            return <Link href={bar.link} key={bar.text}>{bar.text}</Link>;
           })}
         </div>
-        <div className="relative ">
-            <input placeholder="Search" className="flex flex-row-reverse py-2 px-4 max-w-[166px] bg-[#F4F4F5] text-[14px]"></input>
-            <CiSearch size={16} className="h-4 absolute right-2 top-auto bottom-auto"/>
+        <div className="relative hidden lg:block">
+          <input
+            placeholder="Search"
+            className="flex flex-row-reverse py-2 px-4 max-w-[166px] bg-[#F4F4F5] text-[14px]"
+          ></input>
+          <CiSearch size={16} className="h-4 absolute right-2 inset-y-[10px]" />
+        </div>
+        <div className="lg:hidden">
+          <GiHamburgerMenu  size={32}/>
         </div>
       </div>
     </div>
