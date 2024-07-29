@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Inter } from "next/font/google";
+import { Inter, Thasadith } from "next/font/google";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Header } from "@/components/header";
@@ -7,49 +7,60 @@ import { Header } from "@/components/header";
 const inter = Inter({ subsets: ["latin"] });
 
 let data = [];
+let page = 0
+let loadedAll = false
+
+const nav_bar_tags = [{id: 0, name: "All", tag: null }, {id: 2, name: "Python", tag: "python"}]
+
+
 
 export default function Home() {
-
-
   const [articles, setArticle] = useState([]);
+  const [chosen_tag, setTag] = useState(null);
 
   useEffect(() => {
-    fetch(`https://dev.to/api/articles?username=arindam_1729&page1&per_page=6`)
+    LoadMore()
+    console.log(articles)
+  }, []);
+
+
+  function LoadMore() {
+    
+    fetch(
+      `https://dev.to/api/articles?username=arindam_1729&page=${page}&per_page=6${chosen_tag ? `&tag=${chosen_tag}`: ""}`
+    )
       .then((responses) => {
         return responses.json();
       })
       .then((data) => {
-        setArticle(data);
+        data.length < 6 ? loadedAll = true : loadedAll = false;
+        const updatedArticles = articles.concat(data);
+        setArticle(updatedArticles);
       });
-  }, []);
-
-  function LoadMore(){
-    useEffect(() => {
-      fetch(`https://dev.to/api/articles?username=arindam_1729&page1&per_page=6`)
-        .then((responses) => {
-          return responses.json();
-        })
-        .then((data) => {
-          setArticle(data);
-        });
-    }, []);
+    page++;
   }
 
 
 
-
-  console.log(articles);
   return (
     <div className="bg-white">
       <Header />
       <div className="flex flex-col items-center lg:mt-[100px]  lg:gap-[100px]">
         {/* here all the article */}
         <div className="max-w-[1216px] flex flex-col items-center">
+          <span className="text-2xl font-bold">All Blog Post</span>
+
+          {
+            nav_bar_tags.map((tagp)=>(<button id={`${tagp.id}`} >{tagp.name}</button>))
+          }
+
           <div className="grid grid-cols-3 gap-5 ">
-            {articles.map((article) => (
-              <div
+            {articles.map((article) => 
+            (
+              /* Card starts from here */
+              <a
                 className="p-4 max-w-[392px] border-[1px] border-[rgba(232, 232, 234, 1)] rounded-[12px] flex flex-col items-center gap-4"
-                key={article.id}
+                key={article.id} href={article.path} target="_blank"
               >
                 <div className="rounded-[6px] overflow-hidden ">
                   <img
@@ -70,17 +81,20 @@ export default function Home() {
                   </span>
                   <span>{article.created_at.slice(0, 10)}</span>
                 </div>
-              </div>
+              </a>
+              /* here Card ends*/
             ))}
           </div>
         </div>
-        <button className="btn btn-outline" onClick={LoadMore}>Load More</button>
+        { !loadedAll && <button className="btn btn-outline" onClick={LoadMore}>
+          Load More
+        </button>}
+        {/* here article ends */}
       </div>
     </div>
   );
 }
 
-function getAPI() {}
 
 // {
 //   "type_of": "article",
