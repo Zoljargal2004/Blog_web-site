@@ -4,8 +4,8 @@ import { CiSearch } from "react-icons/ci";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 const nav_bar = [
-  { text: "Home", link: "#" },
-  { text: "Blog", link: "#" },
+  { text: "Home", link: "../" },
+  { text: "Blog", link: "allBlog" },
   { text: "Contact", link: "#" },
 ];
 
@@ -39,3 +39,5 @@ export function Header() {
     </div>
   );
 }
+
+

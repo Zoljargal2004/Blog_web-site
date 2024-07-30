@@ -10,8 +10,6 @@ let data = [];
 let page = 0
 let loadedAll = false
 
-const nav_bar_tags = [{id: 0, name: "All", tag: null }, {id: 2, name: "Python", tag: "python"}]
-
 
 
 export default function Home() {
@@ -27,7 +25,7 @@ export default function Home() {
   function LoadMore() {
     
     fetch(
-      `https://dev.to/api/articles?username=arindam_1729&page=${page}&per_page=6${chosen_tag ? `&tag=${chosen_tag}`: ""}`
+      `https://dev.to/api/articles?username=arindam_1729&page=${page}&per_page=6`
     )
       .then((responses) => {
         return responses.json();
@@ -45,14 +43,13 @@ export default function Home() {
   return (
     <div className="bg-white">
       <Header />
-      <div className="flex flex-col items-center lg:mt-[100px]  lg:gap-[100px]">
+      <div className="flex flex-col items-center lg:mt-[100px]  lg:gap-12">
         {/* here all the article */}
-        <div className="max-w-[1216px] flex flex-col items-center">
+        
+        <div className="max-w-[1216px] flex flex-col gap-12">
           <span className="text-2xl font-bold">All Blog Post</span>
 
-          {
-            nav_bar_tags.map((tagp)=>(<button id={`${tagp.id}`} >{tagp.name}</button>))
-          }
+
 
           <div className="grid grid-cols-3 gap-5 ">
             {articles.map((article) => 
