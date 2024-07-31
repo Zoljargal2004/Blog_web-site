@@ -12,16 +12,16 @@ dayjs.extend(relativeTime)
 const inter = Inter({ subsets: ["latin"] });
 
 let data = [];
-let page = 0;
+
 let loadedAll = false;
 
 export default function AllBlog() {
+  let page = 0;
   const [articles, setArticle] = useState([]);
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     LoadMore();
-    console.log(articles);
   }, []);
 
   async function LoadMore() {
@@ -35,10 +35,9 @@ export default function AllBlog() {
     page++;
     
   }
-  console.log(articles)
 
   return (
-    <div className="bg-white">
+    <div className="bg-white text-[#181A2A]">
       <Header />
       <div className="flex flex-col items-center lg:mt-[100px]  lg:gap-12">
         <div className="max-w-[1216px] flex flex-col gap-12">
@@ -67,7 +66,7 @@ function Card(props) {
 
   return (
     <a
-      className="p-4 max-w-[392px] border-[1px] border-[rgba(232, 232, 234, 1)] rounded-[12px] flex flex-col items-center gap-4"
+      className="p-4 max-w-[392px] border-[1px] border-[rgba(232, 232, 234, 1)] rounded-[12px] flex flex-col items-center gap-4 "
       key={article.id}
       href={article.path}
       target="_blank"

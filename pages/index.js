@@ -3,94 +3,66 @@ import { Inter, Thasadith } from "next/font/google";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Header } from "@/components/header";
+import dayjs, { Dayjs } from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "@/components/custom-mn";
+import { AllBlogPost } from "@/components/AllBlogSection";
+
+dayjs.extend(relativeTime);
 
 const inter = Inter({ subsets: ["latin"] });
 
-let data = [];
-let page = 0
-let loadedAll = false
-
-
-
 export default function Home() {
-  const [articles, setArticle] = useState([]);
-  const [chosen_tag, setTag] = useState(null);
-
-  useEffect(() => {
-    LoadMore()
-    console.log(articles)
-  }, []);
-
-
-  function LoadMore() {
-    
-    fetch(
-      `https://dev.to/api/articles?username=arindam_1729&page=${page}&per_page=6`
-    )
-      .then((responses) => {
-        return responses.json();
-      })
-      .then((data) => {
-        data.length < 6 ? loadedAll = true : loadedAll = false;
-        const updatedArticles = articles.concat(data);
-        setArticle(updatedArticles);
-      });
-    page++;
-  }
-
-
-
   return (
-    <div className="bg-white">
+    <div className="bg-white text-[#181A2A]">
       <Header />
-      <div className="flex flex-col items-center lg:mt-[100px]  lg:gap-12">
-        {/* here all the article */}
-        
-        <div className="max-w-[1216px] flex flex-col gap-12">
-          <span className="text-2xl font-bold">All Blog Post</span>
-
-
-
-          <div className="grid grid-cols-3 gap-5 ">
-            {articles.map((article) => 
-            (
-              /* Card starts from here */
-              <a
-                className="p-4 max-w-[392px] border-[1px] border-[rgba(232, 232, 234, 1)] rounded-[12px] flex flex-col items-center gap-4"
-                key={article.id} href={article.path} target="_blank"
-              >
-                <div className="rounded-[6px] overflow-hidden ">
-                  <img
-                    src={article.cover_image}
-                    className="object-cover w-[360px] h-[240px]"
-                  />
-                </div>
-                <div className="flex flex-wrap gap-3">
-                  {article.tag_list.map((tag) => (
-                    <span className="text-[#4B6BFB] px-[10px] py-1 bg-[#4B6BFB0D] text-[14px]">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex flex-col gap-5">
-                  <span className="font-semibold text-2xl">
-                    {article.title}
-                  </span>
-                  <span>{article.created_at.slice(0, 10)}</span>
-                </div>
-              </a>
-              /* here Card ends*/
-            ))}
-          </div>
-        </div>
-        { !loadedAll && <button className="btn btn-outline" onClick={LoadMore}>
-          Load More
-        </button>}
-        {/* here article ends */}
+      <div className="max-w-[1216px] mx-auto ">
+        <AllBlogPost/>
       </div>
     </div>
   );
 }
+
+function SpecialTag(props) {
+  return (
+    <span className="text-[#FFFFFF] py-1 px-[10px] bg-[#4B6BFB] rounded-[6px]">
+      {props.tag}
+    </span>
+  );
+}
+
+function Hero() {
+  return (
+    <div className="max-w-[1216px] relative">
+      <div className="absolute max-w-[598px] left-[11px] bottom-[13px] rounded-3 border-[1px] border-[#E8E8EA] bg-[#FFFFFF] p-10 flex flex-col gap-6"></div>
+    </div>
+  );
+}
+
+function getHeroDetails() {
+  const [heroArticles, setHeroArticles] = useState([]);
+  useEffect(() => {
+    getData();
+  }, []);
+
+  async function getData() {
+    {
+      const responses = await fetch(
+        `https://dev.to/api/articles?username=arindam_1729`
+      );
+      const datas = await responses.json();
+      const bag = [];
+      for (let i = 0; i < datas.length; i++) {
+        if (datas[i]) {
+        }
+      }
+    }
+  }
+}
+
+
+
+
 
 
 // {
