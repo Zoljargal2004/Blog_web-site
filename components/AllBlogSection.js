@@ -33,13 +33,13 @@ export function AllBlogPost() {
           {tags.map((tag) => {
             return (
               <span
+              key={`tag`+tag.id}
                 className={`cursor-pointer hover:text-[#D4A373] ${
                   activeTag == tag.name ? "text-[#D4A373]" : ""
                 }`}
                 id={`tag${tag.id}`}
                 onClick={() => {
                   setActiveTag(tag.name);
-                  
                 }}
               >
                 {tag.name[0].toUpperCase() + tag.name.slice(1)}
@@ -56,7 +56,7 @@ export function AllBlogPost() {
 
 function RenderArticles(props) {
   const [articles, setArticles] = useState([]);
-  const [canCon, setCanCon] = useState(articles.length<=6);
+  const [canCon, setCanCon] = useState(articles.length<=6 * 6);
   const [packNumber, setPackNumber] = useState(6);
 
   useEffect(() => {
@@ -86,7 +86,7 @@ function RenderArticles(props) {
     <>
       <div className="grid grid-cols-3 gap-5">
         {articles.slice(0, packNumber).map((article) => {
-          return <Card details={article} />;
+          return <Card key={article.id} details={article} />;
         })}
       </div>
       {canCon && (

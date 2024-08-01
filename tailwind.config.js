@@ -12,6 +12,12 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      transitionProperty: {
+        'max-height': 'max-height'
+      },
+      boxShadow:{
+        extra: '0px 12px 24px -6px #181A2A1F'
+      }
     },
   },
   plugins: [

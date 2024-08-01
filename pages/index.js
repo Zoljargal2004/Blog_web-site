@@ -1,12 +1,14 @@
 import Image from "next/image";
-import { Inter, Thasadith } from "next/font/google";
+import { Days_One, Inter, Thasadith } from "next/font/google";
 import { useState, useEffect } from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
 import { Header } from "@/components/header";
 import dayjs, { Dayjs } from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "@/components/custom-mn";
 import { AllBlogPost } from "@/components/AllBlogSection";
+import { TrendingSection } from "@/components/TrendingSection";
 
 dayjs.extend(relativeTime);
 
@@ -16,9 +18,31 @@ export default function Home() {
   return (
     <div className="bg-white text-[#181A2A]">
       <Header />
-      <div className="max-w-[1216px] mx-auto ">
-        <AllBlogPost/>
+      <div className="max-w-[1216px] mx-auto flex flex-col gap-[100px] ">
+        <Hero />
+        <TrendingSection />
+        <AllBlogPost />
       </div>
+    </div>
+  );
+}
+
+function Hero() {
+  const articles = getHeroDetails(4);
+  console.log(articles);
+  return (
+    <div className="carousel rounded-box w-[1216px] mx-auto mt-[100px]">
+      {articles.map((article) => (
+        <div className="carousel-item w-full relative">
+          <img className="w-full object-cover" src={article.social_image} />
+          <div className="z-30 absolute left-[10px] bottom-[10px] shadow-extra border-[1px] border-[#E8E8EA] bg-[#FFFFFF] p-10 rounded-[12px] flex flex-col gap-4 max-w-[598px]">
+            <div className="flex flex-wrap gap-2">{article.tag_list.map((tag)=>(<SpecialTag tag={tag}/>))}</div>
+            <h1 className="text-4xl font-semibold">{article.title}</h1>
+            <span className="text-[#97989F] -mt-2">{dayjs(article.published_at).format(`MMM DD, YYYY`)}</span>
+          </div>
+          <div className="inset-0 absolute z-20 bg-[#14162466]"></div>
+        </div>
+      ))}
     </div>
   );
 }
@@ -31,15 +55,7 @@ function SpecialTag(props) {
   );
 }
 
-function Hero() {
-  return (
-    <div className="max-w-[1216px] relative">
-      <div className="absolute max-w-[598px] left-[11px] bottom-[13px] rounded-3 border-[1px] border-[#E8E8EA] bg-[#FFFFFF] p-10 flex flex-col gap-6"></div>
-    </div>
-  );
-}
-
-function getHeroDetails() {
+function getHeroDetails(number) {
   const [heroArticles, setHeroArticles] = useState([]);
   useEffect(() => {
     getData();
@@ -47,23 +63,13 @@ function getHeroDetails() {
 
   async function getData() {
     {
-      const responses = await fetch(
-        `https://dev.to/api/articles?username=arindam_1729`
-      );
+      const responses = await fetch(`https://dev.to/api/articles?state=fresh`);
       const datas = await responses.json();
-      const bag = [];
-      for (let i = 0; i < datas.length; i++) {
-        if (datas[i]) {
-        }
-      }
+      setHeroArticles(datas);
     }
   }
+  return heroArticles.slice(0, number);
 }
-
-
-
-
-
 
 // {
 //   "type_of": "article",
