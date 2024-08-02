@@ -3,6 +3,7 @@ import parse from "html-react-parser";
 import { useRouter } from "next/router";
 import Markdown from "react-markdown";
 import { Header } from "@/components/header";
+import { MainLayOut } from "@/components/MainLayOut";
 
 export default function Page() {
   const [article, setArticle] = useState([]);
@@ -31,14 +32,16 @@ export default function Page() {
   }
 
   if (loading) return <div>Loading...</div>;
-  console.log(article);
   return (
-    <main className="bg-white">
-        <Header/>
-      <div className="prose max-w-[796px] mx-auto mt-[100px]">
-        <div className="text-4xl font-semibold text-[#181A2A]">{article.title}</div>
-        <div>{parse(article.body_html)}</div>
-      </div>
-    </main>
+    <MainLayOut>
+      <main className="bg-white text-[#3B3C4A]">
+        <div className="prose max-w-[796px] mx-auto mt-[100px]">
+          <div className="text-4xl font-semibold text-[#181A2A]">
+            {article.title}
+          </div>
+          <div>{parse(article.body_html)}</div>
+        </div>
+      </main>
+    </MainLayOut>
   );
 }
