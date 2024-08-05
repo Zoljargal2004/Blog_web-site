@@ -15,6 +15,8 @@ dayjs.extend(relativeTime);
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+
+  
   return (
     <div className="bg-white text-[#181A2A]">
       <Header />
@@ -28,8 +30,14 @@ export default function Home() {
 }
 
 function Hero() {
-  const articles = getHeroDetails(4);
-  console.log(articles);
+  const articles = getHeroDetails(9);
+ 
+
+  if (articles == []) {
+     console.log(articles);
+    return <div className="text-black">Loading...</div>
+  }
+
   return (
     <div className="carousel rounded-box w-[1216px] mx-auto mt-[100px]">
       {articles.map((article) => (
@@ -63,39 +71,13 @@ function getHeroDetails(number) {
 
   async function getData() {
     {
-      const responses = await fetch(`https://dev.to/api/articles?state=fresh`);
+      const responses = await fetch(`https://dev.to/api/articles?state=fresh&per_page=${number}`);
       const datas = await responses.json();
       setHeroArticles(datas);
     }
   }
-  return heroArticles.slice(0, number);
+  return heroArticles;
 }
 
-// {
-//   "type_of": "article",
-//   "id": 194541,
-//   "title": "There's a new DEV theme in town for all you 10x hackers out there (plus one actually useful new feature)",
-//   "description": "",
-//   "cover_image": "https://res.cloudinary.com/practicaldev/image/fetch/s--74Bl23tz--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://res.cloudinary.com/practicaldev/image/fetch/s--xU8cbIK4--/c_imagga_scale%2Cf_auto%2Cfl_progressive%2Ch_420%2Cq_auto%2Cw_1000/https://thepracticaldev.s3.amazonaws.com/i/8a39dzf3oovzc2snl7iv.png",
-//   "readable_publish_date": "Oct 24",
-//   "social_image": "https://res.cloudinary.com/practicaldev/image/fetch/s--SeMxdKIa--/c_imagga_scale,f_auto,fl_progressive,h_500,q_auto,w_1000/https://res.cloudinary.com/practicaldev/image/fetch/s--xU8cbIK4--/c_imagga_scale%2Cf_auto%2Cfl_progressive%2Ch_420%2Cq_auto%2Cw_1000/https://thepracticaldev.s3.amazonaws.com/i/8a39dzf3oovzc2snl7iv.png",
-//   "tag_list": [],
-//   "tags": "meta, changelog, css, ux",
-//   "slug": "there-s-a-new-dev-theme-in-town-for-all-you-10x-hackers-out-there-plus-one-actually-useful-new-feature-2kgk",
-//   "path": "/devteam/there-s-a-new-dev-theme-in-town-for-all-you-10x-hackers-out-there-plus-one-actually-useful-new-feature-2kgk",
-//   "url": "https://dev.to/devteam/there-s-a-new-dev-theme-in-town-for-all-you-10x-hackers-out-there-plus-one-actually-useful-new-feature-2kgk",
-//   "canonical_url": "https://dev.to/devteam/there-s-a-new-dev-theme-in-town-for-all-you-10x-hackers-out-there-plus-one-actually-useful-new-feature-2kgk",
-//   "comments_count": 37,
-//   "positive_reactions_count": 12,
-//   "public_reactions_count": 142,
-//   "collection_id": null,
-//   "created_at": "2019-10-24T13:41:29Z",
-//   "edited_at": "2019-10-24T13:56:35Z",
-//   "crossposted_at": null,
-//   "published_at": "2019-10-24T13:52:17Z",
-//   "last_comment_at": "2019-10-25T08:12:43Z",
-//   "published_timestamp": "2019-10-24T13:52:17Z",
-//   "reading_time_minutes": 15,
-//   "user": {},
-//   "organization": {}
-//   }
+
+

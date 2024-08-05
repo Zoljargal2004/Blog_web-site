@@ -39,14 +39,19 @@ export function Footer() {
           </div>
         </div>
         <div className="border-t-[1px] border-[#DCDDDF] text-[#3B3C4A]">
-          <div className="flex gap-[10px]">
-            <img src="../../../images/logo.svg" sizes={48}/>
-            <div className="flex flex-col gap-[2px]">
-              <span className="text-[#141624]">
-                Meta<b>Blog</b>
-              </span>
-              <span>© All Rights Reserved.</span>
+          <div className="flex justify-between">
+            <div className="flex gap-[10px]">
+              <img src="../../../images/logo.svg" sizes={48} />
+              <div className="flex flex-col gap-[2px]">
+                <span className="text-[#141624]">
+                  Meta<b>Blog</b>
+                </span>
+                <span>© All Rights Reserved.</span>
+              </div>
             </div>
+          </div>
+          <div>
+            
           </div>
         </div>
       </div>
