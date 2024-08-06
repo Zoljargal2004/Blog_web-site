@@ -18,17 +18,15 @@ export default function Page() {
     }
   }, [router.isReady]);
 
-  function LoadMore() {
+  async function LoadMore() {
     setLoading(true);
 
-    fetch(`https://dev.to/api/articles/${author}/${slug}`)
-      .then((responses) => {
-        return responses.json();
-      })
-      .then((detail) => {
-        setArticle(detail);
-        setLoading(false);
-      });
+    const responses = await fetch(
+      `https://dev.to/api/articles/${author}/${slug}`
+    );
+    const datas = await responses.json();
+    setArticle(datas);
+    setLoading(false);
   }
 
   if (loading) return <div>Loading...</div>;
