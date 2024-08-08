@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { GiHamburgerMenu } from "react-icons/gi";
 
@@ -12,8 +11,10 @@ const nav_bar = [
 
 export function Header() {
 
+  
+
   return (
-    <div className="p-5 lg:py-8 bg-[#FFFFFF]">
+    <div className="p-5 mb-8 lg:py-8 bg-[#FFFFFF]">
       <div className="flex items-center justify-between max-w-[1130px] m-auto">
         <div className=" text-[#141624] text-3xl items-center gap-[9px] flex">
           <img src="../.././images/logo.svg" className="dark:text-white h-9 w-9" />
@@ -45,6 +46,11 @@ export function Header() {
       </div>
     </div>
   );
+}
+
+
+function SideBar(){
+  return <div className="md:hidden"></div>
 }
 
 

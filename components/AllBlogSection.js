@@ -26,9 +26,9 @@ export function AllBlogPost() {
   }
 
   return (
-    <div className="text-[#181A2A] flex flex-col gap-8">
-      <span className="text-2xl font-bold">All Blog Post</span>
-      <div className="flex justify-between">
+    <div className="text-[#181A2A] flex-col gap-8 flex px-10  ">
+      <span className="text-2xl font-bold  ml-[13px] lg:ml-[0]">All Blog Post</span>
+      <div className="hidden justify-between lg:flex">
         <nav className="flex gap-5">
           {tags.map((tag) => {
             return (
@@ -84,7 +84,7 @@ function RenderArticles(props) {
   }
   return (
     <>
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {articles.slice(0, packNumber).map((article) => {
           return <Card key={article.id} details={article} />;
         })}
@@ -110,7 +110,7 @@ function Card(props) {
 
   return (
     <a
-      className="p-4 max-w-[392px] border-[1px] border-[rgba(232, 232, 234, 1)] rounded-[12px] flex flex-col items-center gap-4 "
+      className="p-4 max-w-[392px] border-[1px] border-[rgba(232, 232, 234, 1)] rounded-[12px] flex flex-col items-center gap-4 mx-auto"
       key={article.id}
       href={article.path}
       target="_blank"
