@@ -22,15 +22,17 @@ export default async function Page({ params }) {
   const article = await response.json();
 
   return (
-    <MainLayOut>
-      <main className="bg-white ">
-        <div className="prose max-w-[796px] mx-auto mt-[100px]">
-          <div className="text-4xl font-semibold text-[#181A2A]">
-            {article.title}
+    <>
+      <MainLayOut>
+        <main className="bg-white ">
+          <div className="prose max-w-[796px] mx-auto mt-[100px]">
+            <div className="text-4xl font-semibold text-[#181A2A]">
+              {article.title}
+            </div>
+            <div className="text-[#3B3C4A]">{parse(article.body_html)}</div>
           </div>
-          <div className="text-[#3B3C4A]">{parse(article.body_html)}</div>
-        </div>
-      </main>
-    </MainLayOut>
+        </main>
+      </MainLayOut>
+    </>
   );
 }
